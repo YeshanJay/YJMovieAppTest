@@ -278,8 +278,8 @@ PODS:
     - React-jsi (= 0.63.3-0)
   - RNCAsyncStorage (1.13.3):
     - React-Core
-  - RNCMaskedView (0.2.0):
-    - React-Core
+  - RNCMaskedView (0.1.10):
+    - React
   - RNDeviceInfo (8.0.1):
     - React-Core
   - RNReanimated (1.13.2):
@@ -329,7 +329,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -409,7 +409,7 @@ EXTERNAL SOURCES:
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNCMaskedView:
-    :path: "../node_modules/@react-native-masked-view/masked-view"
+    :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNReanimated:
@@ -462,7 +462,7 @@ SPEC CHECKSUMS:
   React-RCTText: fdf1d98de8e6556d35f837ac9121464363e10ad8
   ReactCommon: 13cb5bbb74ee1c844bc14aead4d8da214a7d3374
   RNCAsyncStorage: 32c7cbe1d43dff5f03f3d0b9e9d2c44d8ec91a3a
-  RNCMaskedView: 19a053c6aff7be34bea66fb44e9626f6051d1b8f
+  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNDeviceInfo: 54401b60514387f9120ab8265be5ed9103d842b9
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
