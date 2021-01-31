@@ -53,6 +53,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = YJMovieAppTest/main.m; sourceTree = "<group>"; };
 		13EF407525C6A82200C801AB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "YJMovieAppTest-tvOS/Info.plist"; sourceTree = "<group>"; };
 		13EF40EC25C6A9A400C801AB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "YJMovieAppTest-tvOSTests/Info.plist"; sourceTree = "<group>"; };
+		13EF416725C7555500C801AB /* libreact-native-orientation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-orientation.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		171700A00B6A4D1C882F3801 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		224D5D4AEB9A0A36B75746AA /* Pods-YJMovieAppTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YJMovieAppTest.release.xcconfig"; path = "Target Support Files/Pods-YJMovieAppTest/Pods-YJMovieAppTest.release.xcconfig"; sourceTree = "<group>"; };
 		2302A2116ED6458ABC0B7000 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13EF416725C7555500C801AB /* libreact-native-orientation.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				8DC2855AB2CCC04BED0978AE /* libPods-YJMovieAppTest.a */,

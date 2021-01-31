@@ -1,5 +1,10 @@
 package com.test.yjmovies;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+
+import androidx.annotation.NonNull;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -26,4 +31,13 @@ public class MainActivity extends ReactActivity {
 //      }
 //    };
 //  }
+
+
+  @Override
+  public void onConfigurationChanged(@NonNull Configuration newConfig) {
+    super.onConfigurationChanged(newConfig);
+    Intent intent = new Intent("onConfigurationChanged");
+    intent.putExtra("newConfig", newConfig);
+    this.sendBroadcast(intent);
+  }
 }
