@@ -36,6 +36,7 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
 
     bindEvent() {
         this.onPress_Back = this.onPress_Back.bind(this);
+        this.onPress_PlayFab = this.onPress_PlayFab.bind(this);
     }
 
 
@@ -46,6 +47,14 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
     private onPress_Back() {
         const { navigation } = this.props;
         navigation.goBack();
+    }
+
+    private onPress_PlayFab() {
+        const { navigation } = this.props;
+        const { baseModel } = this.state;
+        navigation.navigate("VideoPlayer", {
+            baseModel
+        });
     }
 
 
@@ -88,7 +97,10 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
     renderPlayFab() {
 
         return (
-            <TouchableOpacity style={styles.play_fab}>
+            <TouchableOpacity
+                style={styles.play_fab}
+                onPress={this.onPress_PlayFab}
+            >
                 <Icon
                     name="play"
                     type="font-awesome"
@@ -101,7 +113,6 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
 
     renderHeader() {
         const { baseModel } = this.state;
-
         const imageUrl = baseModel.getBackdropImage();
 
         return (
@@ -116,7 +127,7 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
                 resizeMode="cover"
             >
                 <SafeAreaView style={styles.header_safearea}>
-                    <View style={styles.header_container}>
+                    <View style={styles.header_container} >
 
                         <TouchableOpacity
                             style={styles.header_back}
@@ -185,15 +196,14 @@ const styles = StyleSheet.create({
     },
 
     play_fab: {
-        position: "absolute",
-        top: -30,
-        right: 30,
-        zIndex: 999,
         width: 60,
         height: 60,
+        marginTop: -30,
+        marginRight: 30,
         borderRadius: 30,
         justifyContent: "center",
         alignItems: "center",
+        alignSelf: "flex-end",
         backgroundColor: "#2196F3"
     },
 
