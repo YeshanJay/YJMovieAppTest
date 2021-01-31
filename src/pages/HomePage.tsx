@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Dimensions, FlatList, Platform, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { NativeStackDescriptor } from "react-native-screens/lib/typescript/types";
 import Carousel from "react-native-snap-carousel";
 import StaticSafeAreaInsets from "react-native-static-safe-area-insets";
 import pureBind from "pure-bind";
@@ -16,9 +15,13 @@ import { CustomSection } from "../components/core/CustomSection";
 import { Console } from "../utils/ConsoleLog";
 import { PopularTVSeriesModel } from "../models/PopularTVSeriesModel";
 import { TVSeriesService } from "../services/tmdb/TVSeriesService";
+import { CustomSearchInput } from "../components/core/CustomSearchInput";
+import { Icon } from "react-native-elements";
+import { StackScreenProps } from "@react-navigation/stack";
+import { MainStackParamListDef } from "..";
 
 
-type PropDef = NativeStackDescriptor & {
+type PropDef = StackScreenProps<MainStackParamListDef, "Home"> & {
 
 };
 type StateDef = {
@@ -152,14 +155,14 @@ export class HomePage extends Component<PropDef, StateDef> {
     private onPress_MovieCard(model: PopularMovieModel) {
         const { navigation } = this.props;
         navigation.navigate("MovieDetail", {
-
+            baseModel: model
         });
     }
 
     private onPress_TVSeriesCard(model: PopularTVSeriesModel) {
         const { navigation } = this.props;
         navigation.navigate("MovieDetail", {
-
+            baseModel: model
         });
     }
 
@@ -172,7 +175,31 @@ export class HomePage extends Component<PropDef, StateDef> {
     renderHeader() {
 
         return (
-            null  
+            <View>
+                <CustomSearchInput
+                    buttonify
+                    textInputProps={{
+                        placeholder: "Search here"
+                    }}
+                    buttonViewProps={{
+                        onPress: () => {
+                            const { navigation } = this.props;
+                            navigation.navigate("SearchResult");
+                        }
+                    }}
+                    rightIcon={
+                        <Icon
+                            name="search"
+                            type="font-awesome"
+                            size={20}
+                            color="#BDBDBD"
+                            containerStyle={{
+                                marginLeft: 20
+                            }}
+                        />
+                    }
+                />
+            </View>
         );
     }
 
@@ -182,19 +209,9 @@ export class HomePage extends Component<PropDef, StateDef> {
         const screen_width = Dimensions.get("screen").width - (Platform.isTV && Platform.OS == "ios" ? 160 : (safeAreaInsets.left + safeAreaInsets.right));
 
         return (
-            <SafeAreaView style={{
-                flex: 1,
-                backgroundColor: "#212121"
-            }}>
+            <SafeAreaView style={styles.container}>
                 <ScrollView style={{ flex: 1 }}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate("MovieDetail");
-                        }}
-                    >
-                        <Text >Press Me</Text>
-                    </TouchableOpacity>
-
+                    {this.renderHeader()}
 
                     <View style={{ flex: 1, height: MovieCardExt.CARD_HEIGHT + 20, marginVertical: 40 }}>
 
@@ -358,3 +375,13 @@ export class HomePage extends Component<PropDef, StateDef> {
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+
+    container: {
+        flex: 1,
+        backgroundColor: "#212121"
+    }
+
+});

@@ -21,6 +21,11 @@ type PropDef = TouchableOpacityProps & {
      * Compact mode. Mainly used for horizontal list views.
      */
     compactMode?: boolean;
+
+    /**
+     * Row mode. Mainly used for vertical list views.
+     */
+    rowMode?: boolean;
 };
 type StateDef = {
 
@@ -47,12 +52,14 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
 
     static propTypes = {
         shimmer: PropTypes.bool,
-        compactMode: PropTypes.bool
+        compactMode: PropTypes.bool,
+        rowMode: PropTypes.bool
     };
 
     static defaultProps = {
         shimmer: false,
-        compactMode: false
+        compactMode: false,
+        rowMode: false
     };
 
 
@@ -66,12 +73,17 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
 
 
     renderShortDescription() {
-        const { movieModel } = this.props;
+        const { movieModel, rowMode } = this.props;
+
+        let styRow = null;
+        if (rowMode) {
+            styRow = styles.desc_row;
+        }
 
         return (
             <Text
                 numberOfLines={3}
-                style={styles.desc}
+                style={[styles.desc, styRow]}
             >{movieModel.getDescription()}</Text>
         );
     }
@@ -103,8 +115,31 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
         );
     }
 
+    renderBody_Row() {
+        const { movieModel } = this.props;
+        const imageUrl = movieModel.getPosterImage();
+
+        return (
+            <View style={styles.container_inner}>
+                <Image
+                    source={{
+                        uri: imageUrl,
+                        // height: styles.img.height
+                    }}
+                    style={styles.img_row}
+                    resizeMode="cover"
+                />
+                <View style={{ flex: 1, padding: 15 }}>
+                    {this.renderTitle()}
+                    {this.renderGenreList()}
+                    {this.renderShortDescription()}
+                </View>
+            </View>
+        );
+    }
+
     renderBody_Compact() {
-        const { movieModel, compactMode } = this.props;
+        const { movieModel } = this.props;
         const imageUrl = movieModel.getPosterImage();
 
         return (
@@ -126,7 +161,7 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
     }
 
     renderBody_Default() {
-        const { movieModel, compactMode } = this.props;
+        const { movieModel } = this.props;
         const imageUrl = movieModel.getBackdropImage();
 
         return (
@@ -155,8 +190,11 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
     }
 
     renderBody() {
-        const { compactMode } = this.props;
+        const { compactMode, rowMode } = this.props;
 
+        if (rowMode) {
+            return this.renderBody_Row();
+        }
         if (compactMode) {
             return this.renderBody_Compact();
         }
@@ -165,20 +203,24 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
     }
 
     render() {
-        const { compactMode } = this.props;
+        const { compactMode, rowMode } = this.props;
 
         let styCompact = null;
+        let styRow = null;
         let styShadow = null;
         if (compactMode) {
             styCompact = styles.container_compact;
             styShadow = styles.container_shadow;
+        }
+        if (rowMode) {
+            styRow = styles.container_row;
         }
 
         return (
             <TouchableOpacity
                 activeOpacity={0.5}
                 {...this.props}
-                style={[styles.container, styCompact, styShadow]}
+                style={[styles.container, styCompact, styRow, styShadow]}
             >
                 {this.renderBody()}
             </TouchableOpacity>
@@ -202,6 +244,14 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 5
     },
+    container_row: {
+        borderRadius: 4,
+        width: "auto",
+        height: 150,
+        // marginHorizontal: 10,
+        marginVertical: 5,
+        backgroundColor: "#171717"
+    },
 
     container_shadow: {
         shadowColor: "#000000",
@@ -213,6 +263,10 @@ const styles = StyleSheet.create({
         },
 
         elevation: 2
+    },
+
+    container_inner: {
+        flexDirection: "row"
     },
 
     img_bg: {
@@ -232,6 +286,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 8,
         overflow: "hidden"
     },
+    img_row: {
+        width: 100,
+        height: 150,
+
+        borderRadius: 4,
+        overflow: "hidden"
+    },
 
 
     title: {
@@ -248,6 +309,11 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#FFF",
         marginBottom: 10
+    },
+    desc_row: {
+        color: "#BDBDBD",
+        marginTop: 5,
+        marginBottom: 0
     },
 
     genre_text: {

@@ -42,3 +42,6 @@ export type DiscoverMovieSearchParams = {
 export type DiscoverMovieResponseDTD = CommonTMDBResultsResponse<PopularMovieDataDTD[]>;
 export type DiscoverMovieModelResponseDTD = CommonTMDBResultsResponse<PopularMovieModel[]>;
 
+export type SearchMovieResponseDTD = CommonTMDBResultsResponse<PopularMovieDataDTD[]>;
+export type SearchMovieModelResponseDTD = CommonTMDBResultsResponse<PopularMovieModel[]>;
+

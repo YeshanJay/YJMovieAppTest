@@ -12,6 +12,8 @@ import { HomePage } from "./pages/HomePage";
 import { MovieDetailPage } from "./pages/movie/MovieDetailPage";
 import { SearchResultPage } from "./pages/SearchResultPage";
 import { SplashPage } from "./pages/SplashPage";
+import { BaseMovieModel } from "./models/BaseMovieModel";
+import { VideoPlayerPage } from "./pages/movie/VideoPlayerPage";
 
 
 enableScreens();
@@ -27,7 +29,12 @@ export type MainStackParamListDef = {
     Splash: { setSplashLoad: (loading: boolean) => void; };
     Home: undefined;
     SearchResult: undefined;
-    MovieDetail: undefined;
+    MovieDetail: {
+        baseModel: BaseMovieModel;
+    };
+    VideoPlayer: {
+        baseModel: BaseMovieModel;
+    };
 };
 
 
@@ -72,14 +79,15 @@ const App = () => {
             // <RootStack.Screen
             //     name="RootMain"
             //     component={() =>
-                    <MainStack.Navigator initialRouteName="Splash">
-                        {/* {isLoading ?
+            <MainStack.Navigator initialRouteName="Home">
+                {/* {isLoading ?
                                      <MainStack.Screen name="Splash" component={SplashPage} initialParams={{ setSplashLoad }} /> : null               
                         } */}
-                        <MainStack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
-                        <MainStack.Screen name="SearchResult" component={SearchResultPage} />
-                        <MainStack.Screen name="MovieDetail" component={MovieDetailPage} />
-                    </MainStack.Navigator>
+                <MainStack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
+                <MainStack.Screen name="SearchResult" component={SearchResultPage} options={{ headerShown: false }} />
+                <MainStack.Screen name="MovieDetail" component={MovieDetailPage} options={{ headerShown: false }} />
+                <MainStack.Screen name="VideoPlayer" component={VideoPlayerPage} options={{ headerShown: false }} />
+            </MainStack.Navigator>
             //     }
             // />
 
@@ -91,7 +99,7 @@ const App = () => {
             <NavigationContainer>
 
                 {/* <RootStack.Navigator > */}
-                    {renderScreens()}
+                {renderScreens()}
                 {/* </RootStack.Navigator> */}
 
             </NavigationContainer>
