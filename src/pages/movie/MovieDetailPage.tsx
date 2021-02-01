@@ -1,9 +1,13 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { Component } from "react";
-import { Image, ImageBackground, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground, InteractionManager, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { MainStackParamListDef } from "../..";
-import { BaseMovieModel } from "../../models/BaseMovieModel";
+import { FavButton } from "../../components/common/FavButton";
+import { BaseMovieModel, VID_TYPE_ENUM } from "../../models/BaseMovieModel";
+import { PopularMovieModel } from "../../models/PopularMovieModel";
+import { PopularTVSeriesModel } from "../../models/PopularTVSeriesModel";
+import { FavouriteService } from "../../services/FavouriteService";
 
 
 type PropDef = StackScreenProps<MainStackParamListDef, "MovieDetail"> & {
@@ -37,6 +41,7 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
     bindEvent() {
         this.onPress_Back = this.onPress_Back.bind(this);
         this.onPress_PlayFab = this.onPress_PlayFab.bind(this);
+        this.onPress_FavButton = this.onPress_FavButton.bind(this);
     }
 
 
@@ -54,6 +59,23 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
         const { baseModel } = this.state;
         navigation.navigate("VideoPlayer", {
             baseModel
+        });
+    }
+
+    private onPress_FavButton() {
+        const { baseModel } = this.state;
+        const isFav = !baseModel.isFavaourite();
+
+        InteractionManager.runAfterInteractions(() => {
+            switch (baseModel.getType()) {
+                case VID_TYPE_ENUM.MOVIE:
+                    FavouriteService.updateMovie_FavStatus(baseModel as PopularMovieModel, isFav);
+                    break;
+
+                case VID_TYPE_ENUM.TV_SERIES:
+                    FavouriteService.updateTVSeries_FavStatus(baseModel as PopularTVSeriesModel, isFav);
+                    break;
+            }
         });
     }
 
@@ -193,27 +215,9 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
 
     renderFav() {
         const { baseModel } = this.state;
-        const isFav = baseModel.isFavaourite();
-
-        let styTv = null;
-        let iconSize = 20;
-        if (Platform.isTV) {
-            styTv = styles.header_back_tv;
-            iconSize = 30;
-        }
 
         return (
-            <TouchableOpacity
-                style={[styles.header_back, styTv]}
-                onPress={this.onPress_Back}
-            >
-                <Icon
-                    name={isFav ? "heart" : "heart-o"}
-                    type="font-awesome"
-                    size={iconSize}
-                    color="#FF5722"
-                />
-            </TouchableOpacity>
+            <FavButton baseModel={baseModel} />
         );
     }
 
@@ -308,8 +312,7 @@ const styles = StyleSheet.create({
     header_back_tv: {
         width: 80,
         height: 80,
-        marginVertical: 40,
-        marginHorizontal: 20
+        justifyContent: "center"
     },
     header_title: {
         fontSize: 18,
