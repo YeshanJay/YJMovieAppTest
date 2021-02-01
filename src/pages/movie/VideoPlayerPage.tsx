@@ -1,6 +1,6 @@
 import { StackScreenProps } from "@react-navigation/stack";
 import React, { Component } from "react";
-import { Easing, ImageBackground, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import Orientation from "react-native-orientation";
 import Animated from "react-native-reanimated";
@@ -52,8 +52,13 @@ export class VideoPlayerPage extends Component<PropDef, StateDef> {
 
     componentDidMount() {
         if (!Platform.isTV) {
-            Orientation.lockToLandscape();
-            Orientation.lockToLandscape();
+            if (Platform.OS == "android") {
+                setTimeout(() => {
+                    Orientation.lockToLandscape();
+                }, 1000);
+            } else {
+                Orientation.lockToLandscape();
+            }
         }
     }
 
@@ -136,13 +141,12 @@ export class VideoPlayerPage extends Component<PropDef, StateDef> {
                             uri: videoUrl
                         }}
                         controls
-                        onTimedMetadata={() => {
-                            Console.debug("onTimedMetadata - ");
-                        }}
+                        resizeMode="cover"
+                        fullscreenOrientation="landscape"
+                        style={styles.video}
                         onError={(error) => {
                             Console.debug("onError - ", error);
                         }}
-                        style={styles.video}
                     />
                 </View>
                 {this.renderHeader()}
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
         left: 0,
-        
+
         width: "100%",
         height: "100%",
         backgroundColor: "#171717"

@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
 
     genre_text: {
         fontSize: 12,
-        color: "#424242",
+        color: "#757575",
         marginTop: 2
     }
 
