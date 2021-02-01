@@ -207,7 +207,7 @@ export class HomePage extends Component<PropDef, StateDef> {
 
     render() {
         const { safeAreaInsets, popularMovies, familyMovies, documentaryMovies, popularTVSeries } = this.state;
-
+        // Why 160?? Don't know! but it works.. ¯\_(ツ)_/¯
         const screen_width = Dimensions.get("screen").width - (Platform.isTV && Platform.OS == "ios" ? 160 : (safeAreaInsets.left + safeAreaInsets.right));
 
         return (

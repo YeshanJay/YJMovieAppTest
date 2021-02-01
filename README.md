@@ -46,7 +46,8 @@ For iOS, open Xcode `.xcworkspace` and then select a simulator (mobile or TV) an
 [Apple TV](https://drive.google.com/file/d/1qwwYWU9Va2jcEQhx41bVPRnnB4z-6WBr/view?usp=sharing)
 
 
-## Known issues
+## Note
 
-
+- Orientation on iOS device does not lock to landscape mode.
+- Video url is hardcoded.
 - For some unknown reason, the iOS/AppleTV simulators had some green theme applied (not really an issue 😬).
