@@ -69,9 +69,22 @@ export class ServiceUrls {
      * FORMAT:
      * 
      * GET: `/movie/{movie_id}`
+     * 
+     * @param movieId Movie ID
      */
     static API_TMDB_GET_MOVIE_BY_ID(movieId: number) {
         return `${ServiceUrls.API_BASE_URL}/movie/${movieId}`;
+    }
+
+    /**
+     * FORMAT:
+     * 
+     * GET: `/tv/{tv_id}`
+     * 
+     * @param tvId Tv Series ID
+     */
+    static API_TMDB_GET_TVSERIES_BY_ID(tvId: number) {
+        return `${ServiceUrls.API_BASE_URL}/tv/${tvId}`;
     }
 
 

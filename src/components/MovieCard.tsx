@@ -1,8 +1,13 @@
 import React, { PureComponent } from "react";
-import { View, TouchableOpacity, StyleSheet, ImageBackground, Text, Image, TouchableOpacityProps, Platform } from "react-native";
+import { View, TouchableOpacity, StyleSheet, ImageBackground, Text, Image, TouchableOpacityProps, Platform, InteractionManager } from "react-native";
 import PropTypes from "prop-types";
-import { BaseMovieModel } from "../models/BaseMovieModel";
-import { Console } from "../utils/ConsoleLog";
+import { BaseMovieModel, VID_TYPE_ENUM } from "../models/BaseMovieModel";
+import { Icon } from "react-native-elements";
+import { FavouriteService } from "../services/FavouriteService";
+import { PopularMovieModel } from "../models/PopularMovieModel";
+import { PopularTVSeriesModel } from "../models/PopularTVSeriesModel";
+import { ReduxStoreDef } from "../redux/store/StoreDef";
+import { connect } from "react-redux";
 
 
 
@@ -26,6 +31,11 @@ type PropDef = TouchableOpacityProps & {
      * Row mode. Mainly used for vertical list views.
      */
     rowMode?: boolean;
+
+    /**
+     * Shows the favourite button.
+     */
+    showFav?: boolean;
 };
 type StateDef = {
 
@@ -47,19 +57,21 @@ export class MovieCardExt {
     }
 }
 
-export class MovieCard extends PureComponent<PropDef, StateDef> {
+class MovieCard extends PureComponent<PropDef, StateDef> {
 
 
     static propTypes = {
         shimmer: PropTypes.bool,
         compactMode: PropTypes.bool,
-        rowMode: PropTypes.bool
+        rowMode: PropTypes.bool,
+        showFav: PropTypes.bool
     };
 
     static defaultProps = {
         shimmer: false,
         compactMode: false,
-        rowMode: false
+        rowMode: false,
+        showFav: false
     };
 
 
@@ -69,6 +81,26 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
         this.state = {
 
         };
+
+        this.onPress_FavButton = this.onPress_FavButton.bind(this);
+    }
+
+
+    onPress_FavButton() {
+        const { movieModel } = this.props;
+        const isFav = !movieModel.isFavaourite();
+
+        InteractionManager.runAfterInteractions(() => {
+            switch (movieModel.getType()) {
+                case VID_TYPE_ENUM.MOVIE:
+                    FavouriteService.updateMovie_FavStatus(movieModel as PopularMovieModel, isFav);
+                    break;
+
+                case VID_TYPE_ENUM.TV_SERIES:
+                    FavouriteService.updateTVSeries_FavStatus(movieModel as PopularTVSeriesModel, isFav);
+                    break;
+            }
+        });
     }
 
 
@@ -89,17 +121,21 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
     }
 
     renderTitle() {
-        const { movieModel, compactMode } = this.props;
+        const { movieModel, compactMode, rowMode } = this.props;
 
         let styTitleCompact = null;
         if (compactMode) {
             styTitleCompact = styles.title_compact;
         }
+        let styTitleRow = null;
+        if (rowMode) {
+            styTitleRow = styles.title_row;
+        }
 
         return (
             <Text
                 numberOfLines={1}
-                style={[styles.title, styTitleCompact]}
+                style={[styles.title, styTitleCompact, styTitleRow]}
             >{movieModel.getTitle()}</Text>
         );
     }
@@ -112,6 +148,34 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
                 numberOfLines={2}
                 style={styles.genre_text}
             >{movieModel.getGenresFormatted()}</Text>
+        );
+    }
+
+    renderFavourite() {
+        const { movieModel, showFav } = this.props;
+
+        if (!showFav) {
+            return null;
+        }
+
+        const isFav = movieModel.isFavaourite();
+
+        return (
+            <TouchableOpacity
+                style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 10
+                }}
+                onPress={this.onPress_FavButton}
+            >
+                <Icon
+                    name={isFav ? "heart" : "heart-o"}
+                    type="font-awesome"
+                    size={20}
+                    color="#FF5722"
+                />
+            </TouchableOpacity>
         );
     }
 
@@ -133,6 +197,7 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
                     {this.renderTitle()}
                     {this.renderGenreList()}
                     {this.renderShortDescription()}
+                    {this.renderFavourite()}
                 </View>
             </View>
         );
@@ -156,6 +221,7 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
                     {this.renderTitle()}
                     {this.renderGenreList()}
                 </View>
+                {this.renderFavourite()}
             </>
         );
     }
@@ -185,6 +251,8 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
                     {this.renderShortDescription()}
                     {this.renderTitle()}
                 </View>
+
+                {this.renderFavourite()}
             </ImageBackground>
         );
     }
@@ -227,6 +295,27 @@ export class MovieCard extends PureComponent<PropDef, StateDef> {
         );
     }
 }
+
+const mapStateToProps = (state: ReduxStoreDef) => {
+
+    return {
+        favMovies: state.app.favMovies,
+        favTVSeries: state.app.favTVSeries
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+const MovieCardCon: React.ComponentType<PropDef> = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MovieCard);
+
+export { MovieCardCon as MovieCard };
+
+
 
 const styles = StyleSheet.create({
 
@@ -303,6 +392,9 @@ const styles = StyleSheet.create({
     title_compact: {
         fontSize: 16,
         color: "#212121"
+    },
+    title_row: {
+        marginRight: 15
     },
 
     desc: {

@@ -1,0 +1,9 @@
+
+export const AT_LOAD_FAV_MOVIES = "AT_LOAD_FAV_MOVIES";
+export const AT_LOAD_FAV_TVSERIES = "AT_LOAD_FAV_TVSERIES";
+
+export const AT_FAV_MOVIE = "AT_FAV_MOVIE";
+export const AT_UNFAV_MOVIE = "AT_UNFAV_MOVIE";
+export const AT_FAV_TVSERIES = "AT_FAV_TVSERIES";
+export const AT_UNFAV_TVSERIES = "AT_UNFAV_TVSERIES";
+

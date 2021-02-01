@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Dimensions, FlatList, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 import StaticSafeAreaInsets from "react-native-static-safe-area-insets";
@@ -19,6 +19,7 @@ import { CustomSearchInput } from "../components/core/CustomSearchInput";
 import { Icon } from "react-native-elements";
 import { StackScreenProps } from "@react-navigation/stack";
 import { MainStackParamListDef } from "..";
+import { FavouriteService } from "../services/FavouriteService";
 
 
 type PropDef = StackScreenProps<MainStackParamListDef, "Home"> & {
@@ -97,6 +98,7 @@ export class HomePage extends Component<PropDef, StateDef> {
 
     async loadConfig() {
         GenreService.loadGenreList();
+        FavouriteService.loadAndStore_Favourites();
 
         const data = await TMDBService.fetchConfig();
         if (data && data.images) {
@@ -225,6 +227,7 @@ export class HomePage extends Component<PropDef, StateDef> {
                                     <MovieCard
                                         movieModel={item}
                                         activeOpacity={0.8}
+                                        showFav={!Platform.isTV}
                                         onPress={pureBind(this.onPress_MovieCard, item)}
                                         onFocus={() => {
                                             const ii = index;
@@ -267,6 +270,7 @@ export class HomePage extends Component<PropDef, StateDef> {
                                     <MovieCard
                                         movieModel={item}
                                         compactMode
+                                        showFav={!Platform.isTV}
                                         onPress={pureBind(this.onPress_MovieCard, item)}
                                     />
                                 );
@@ -298,6 +302,7 @@ export class HomePage extends Component<PropDef, StateDef> {
                                     <MovieCard
                                         movieModel={item}
                                         compactMode
+                                        showFav={!Platform.isTV}
                                         onPress={pureBind(this.onPress_TVSeriesCard, item)}
                                     />
                                 );
@@ -329,6 +334,7 @@ export class HomePage extends Component<PropDef, StateDef> {
                                     <MovieCard
                                         movieModel={item}
                                         compactMode
+                                        showFav={!Platform.isTV}
                                         onPress={pureBind(this.onPress_MovieCard, item)}
                                     />
                                 );
@@ -360,6 +366,7 @@ export class HomePage extends Component<PropDef, StateDef> {
                                     <MovieCard
                                         movieModel={item}
                                         compactMode
+                                        showFav={!Platform.isTV}
                                         onPress={pureBind(this.onPress_MovieCard, item)}
                                     />
                                 );

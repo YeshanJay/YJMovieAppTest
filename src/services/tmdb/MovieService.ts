@@ -140,5 +140,37 @@ export class MovieService {
     }
 
 
+    static async fetchMovieByIds(ids: number[]): Promise<PopularMovieModel[]> {
+        let models: PopularMovieModel[] = [];
+
+        try {
+            models = await Promise.all(ids.map((id) => {
+                return MovieService.fetchMovieById(id);
+            }));
+        } catch (error) {
+            Console.error(error);
+        }
+
+        return models;
+    }
+
+    static async fetchMovieById(id: number): Promise<PopularMovieModel> {
+        let model: PopularMovieModel = null;
+
+        try {
+            const finalUrl = `${ServiceUrls.API_TMDB_GET_MOVIE_BY_ID(id)}`;
+
+            const res = await APIHelper.api.get<PopularMovieDataDTD>(finalUrl);
+            if (res.data) {
+                const rawData = res.data;
+                model = PopularMovieModel.createFromRawData(rawData);
+            }
+
+        } catch (error) {
+            Console.error(error);
+        }
+
+        return model;
+    }
 
 }

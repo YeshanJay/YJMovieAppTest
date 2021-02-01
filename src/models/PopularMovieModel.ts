@@ -1,10 +1,14 @@
 import { PopularMovieDataDTD } from "../services/tmdb/dtd/MovieTMDB-dtd";
 import { GenreService } from "../services/tmdb/GenreService";
 import { IMAGE_SIZE_ENUM, TMImageService } from "../services/tmdb/TMImageService";
-import { BaseMovieModel } from "./BaseMovieModel";
+import { BaseMovieModel, VID_TYPE_ENUM } from "./BaseMovieModel";
 
+type FavMovieDef = {
+    [projectId: number]: boolean;
+};
 
 export class PopularMovieModel extends BaseMovieModel {
+    static favIDs: FavMovieDef = {};
 
     private _rawData: PopularMovieDataDTD = null;
     private constructor() {
@@ -59,6 +63,13 @@ export class PopularMovieModel extends BaseMovieModel {
     /**
      * @override
      */
+    getType(): VID_TYPE_ENUM {
+        return VID_TYPE_ENUM.MOVIE;
+    }
+
+    /**
+     * @override
+     */
     getPosterImage(): string {
         return this.posterImage;
     }
@@ -77,6 +88,14 @@ export class PopularMovieModel extends BaseMovieModel {
         return this._rawData.genre_ids.map((id) => {
             return GenreService.getMovieGenreById(id);
         }).join(", ");
+    }
+
+    /**
+     * @override
+     */
+    isFavaourite(): boolean {
+        const isFav = !!PopularMovieModel.favIDs[this.getId()];
+        return isFav;
     }
 
 }

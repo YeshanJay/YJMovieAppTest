@@ -191,6 +191,32 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
         );
     }
 
+    renderFav() {
+        const { baseModel } = this.state;
+        const isFav = baseModel.isFavaourite();
+
+        let styTv = null;
+        let iconSize = 20;
+        if (Platform.isTV) {
+            styTv = styles.header_back_tv;
+            iconSize = 30;
+        }
+
+        return (
+            <TouchableOpacity
+                style={[styles.header_back, styTv]}
+                onPress={this.onPress_Back}
+            >
+                <Icon
+                    name={isFav ? "heart" : "heart-o"}
+                    type="font-awesome"
+                    size={iconSize}
+                    color="#FF5722"
+                />
+            </TouchableOpacity>
+        );
+    }
+
     renderTVView() {
         const { baseModel } = this.state;
         const imageUrl = baseModel.getPosterImage();
@@ -215,6 +241,7 @@ export class MovieDetailPage extends Component<PropDef, StateDef> {
                         {this.renderShortDescription()}
 
                         {this.renderPlayFab()}
+                        {this.renderFav()}
                         {this.renderHeaderForTV()}
                     </View>
                 </View>

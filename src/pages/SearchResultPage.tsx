@@ -215,6 +215,7 @@ export class SearchResultPage extends Component<PropDef, StateDef> {
             <MovieCard
                 movieModel={model}
                 rowMode
+                showFav={!Platform.isTV}
                 onPress={pureBind(this.onPress_MovieCard, model)}
             />
         );

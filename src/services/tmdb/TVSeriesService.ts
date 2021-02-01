@@ -121,4 +121,37 @@ export class TVSeriesService {
     }
 
 
+    static async fetchTVSeriesByIds(ids: number[]): Promise<PopularTVSeriesModel[]> {
+        let models: PopularTVSeriesModel[] = [];
+
+        try {
+            models = await Promise.all(ids.map((id) => {
+                return TVSeriesService.fetchTVSeriesById(id);
+            }));
+        } catch (error) {
+            Console.error(error);
+        }
+
+        return models;
+    }
+
+    static async fetchTVSeriesById(id: number): Promise<PopularTVSeriesModel> {
+        let model: PopularTVSeriesModel = null;
+
+        try {
+            const finalUrl = `${ServiceUrls.API_TMDB_GET_MOVIE_BY_ID(id)}`;
+
+            const res = await APIHelper.api.get<PopularTVSeriesDataDTD>(finalUrl);
+            if (res.data) {
+                const rawData = res.data;
+                model = PopularTVSeriesModel.createFromRawData(rawData);
+            }
+
+        } catch (error) {
+            Console.error(error);
+        }
+
+        return model;
+    }
+
 }

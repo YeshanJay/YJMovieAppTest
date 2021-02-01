@@ -1,4 +1,5 @@
 
 export enum STORAGE_KEY_ENUM {
-    APP_DATA = "APP_DATA"
+    APP_DATA = "APP_DATA",
+    FAV_MOVIES = "FAV_MOVIES"
 }
