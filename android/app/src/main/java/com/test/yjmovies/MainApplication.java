@@ -1,13 +1,19 @@
-package com.yjmovieapptest;
+package com.test.yjmovies;
 
 import android.app.Application;
 import android.content.Context;
+
+import androidx.annotation.Nullable;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.JSIModulePackage;
 import com.facebook.soloader.SoLoader;
+//import com.swmansion.reanimated.ReanimatedJSIModulePackage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -33,6 +39,12 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
           return "index";
         }
+
+//          @Nullable
+//          @Override
+//          protected JSIModulePackage getJSIModulePackage() {
+//              return new ReanimatedJSIModulePackage();
+//          }
       };
 
   @Override
@@ -62,7 +74,7 @@ public class MainApplication extends Application implements ReactApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("com.yjmovieapptest.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.test.yjmovies.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);
