@@ -12,7 +12,6 @@ import { MovieService } from "../services/tmdb/MovieService";
 import { TMDBService } from "../services/tmdb/TMDBService";
 import { TMImageService } from "../services/tmdb/TMImageService";
 import { CustomSection } from "../components/core/CustomSection";
-import { Console } from "../utils/ConsoleLog";
 import { PopularTVSeriesModel } from "../models/PopularTVSeriesModel";
 import { TVSeriesService } from "../services/tmdb/TVSeriesService";
 import { CustomSearchInput } from "../components/core/CustomSearchInput";

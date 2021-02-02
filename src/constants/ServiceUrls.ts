@@ -106,9 +106,4 @@ export class ServiceUrls {
         return `${ServiceUrls.API_BASE_URL}/genre/tv/list`;
     }
 
-
-
-
-
-
 }

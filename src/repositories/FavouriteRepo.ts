@@ -52,23 +52,6 @@ export class FavouriteRepo {
         }
     }
 
-    // static async updateSavedProjectsList(projects: ProjectModel[]): Promise<void> {
-    //     // const savedMap: SavedProjectsStorageDTD = await StorageHelper.get<SavedProjectsStorageDTD>(STORAGE_KEY_ENUM.SAVED_PROJECTS);
-
-    //     const savedMap: SavedProjectsStorageDTD = {};
-    //     projects.forEach((projectModel) => {
-    //         savedMap[projectModel.projectId] = true;
-    //     });
-
-    //     Console.debug("savedMap", savedMap);
-    //     PopularMovieModel.favIDs = savedMap
-
-    //     try {
-    //         reduxStore.dispatch(ac_loadFavouriteMovies(projects));
-    //     } catch (error) {
-    //         Console.error(error);
-    //     }
-    // }
 
     static async updateFavMovie(model: PopularMovieModel, saved: boolean): Promise<void> {
         if (saved) {
@@ -97,8 +80,6 @@ export class FavouriteRepo {
             tvSeries: PopularTVSeriesModel.favIDs
         });
     }
-
-
-
+    
 
 }

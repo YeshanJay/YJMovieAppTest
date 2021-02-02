@@ -1,7 +1,6 @@
 import React, { Component, useCallback, useEffect, useState } from "react";
 import { Button, Dimensions, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { NativeStackDescriptor } from "react-native-screens/lib/typescript/types";
 import { TMDBService } from "../services/tmdb/TMDBService";
 import { Console } from "../utils/ConsoleLog";
 import { SplashStackParamListDef } from "..";

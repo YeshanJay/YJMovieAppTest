@@ -1,5 +1,4 @@
 
-
 export class UserLogin {
 
     private static _instance = null;

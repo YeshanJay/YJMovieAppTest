@@ -92,30 +92,6 @@ export class CustomSearchInput extends PureComponent<PropsDef, StateDef> {
      * RENDER METHODS
      *****************************************************************************************************/
 
-
-    // renderLeftIcon() {
-    //     const { leftIcon } = this.props;
-
-    //     if (leftIcon) {
-    //         return (
-    //             <View style={{ marginRight: 12, justifyContent: "center" }}>
-    //                 {leftIcon}
-    //             </View>
-    //         );
-    //     }
-
-    //     return (
-    //         <SvgFromXml
-    //             xml={searchIcon_accent}
-    //             width={16}
-    //             height={16}
-    //             style={{
-    //                 marginRight: 10
-    //             }}
-    //         />
-    //     );
-    // }
-
     renderRightIcon() {
         const { rightIcon, replaceRightIconWithClear, textInputProps } = this.props;
         const value = textInputProps ? textInputProps.value : "";
