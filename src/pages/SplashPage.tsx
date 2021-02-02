@@ -53,7 +53,7 @@ const SplashPage: React.FunctionComponent<PropDef> = ({ navigation, route }) => 
         <View style={{ flex: 1 }}>
             <Text style={{ marginTop: 50 }}>Splash page</Text>
 
-            <Button title="Press" onPress={onPress} />
+            <Button title="Testing" onPress={onPress} />
         </View>
     )
 }

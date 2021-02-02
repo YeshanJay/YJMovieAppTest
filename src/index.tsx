@@ -40,7 +40,7 @@ export type MainStackParamListDef = {
 
 const SplashStack = createNativeStackNavigator<SplashStackParamListDef>();
 const MainStack = createNativeStackNavigator<MainStackParamListDef>();
-const RootStack = createNativeStackNavigator();
+// const RootStack = createNativeStackNavigator();
 
 
 const App = () => {
@@ -50,58 +50,28 @@ const App = () => {
 
         // if (isLoading) {
         //     return (
-        //         // <>
-        //         //     <MainStack.Screen name="Splash" component={SplashPage} options={{ headerShown: false, ani }} initialParams={{ setSplashLoad }} />
-        //         // </>
-
-
-        //         <RootStack.Screen
-        //             name="RootSplash"
-        //             component={() =>
-        //                 <SplashStack.Navigator
-        //                     initialRouteName="Splash"
-        //                 >
-        //                     <SplashStack.Screen name="Splash" component={SplashPage} initialParams={{ setSplashLoad }} />
-        //                 </SplashStack.Navigator>
-        //             }
-        //         />
-
+        //         <SplashStack.Navigator
+        //             initialRouteName="Splash"
+        //         >
+        //             <SplashStack.Screen name="Splash" component={SplashPage} initialParams={{ setSplashLoad }} />
+        //         </SplashStack.Navigator>
         //     )
         // }
 
         return (
-            // <>
-            //     <MainStack.Screen name="Home" component={HomePage} options={{ headerShown: !(Platform.isTV && Platform.OS == "ios") }} />
-            //     <MainStack.Screen name="SearchResult" component={SearchResultPage} />
-            //     <MainStack.Screen name="MovieDetail" component={MovieDetailPage} />
-            // </>
-
-            // <RootStack.Screen
-            //     name="RootMain"
-            //     component={() =>
             <MainStack.Navigator initialRouteName="Home">
-                {/* {isLoading ?
-                                     <MainStack.Screen name="Splash" component={SplashPage} initialParams={{ setSplashLoad }} /> : null               
-                        } */}
                 <MainStack.Screen name="Home" component={HomePage} options={{ headerShown: false }} />
                 <MainStack.Screen name="SearchResult" component={SearchResultPage} options={{ headerShown: false }} />
                 <MainStack.Screen name="MovieDetail" component={MovieDetailPage} options={{ headerShown: false }} />
                 <MainStack.Screen name="VideoPlayer" component={VideoPlayerPage} options={{ headerShown: false }} />
             </MainStack.Navigator>
-            //     }
-            // />
-
         );
     }, [isLoading]);
 
     return (
         <Provider store={store}>
             <NavigationContainer>
-
-                {/* <RootStack.Navigator > */}
                 {renderScreens()}
-                {/* </RootStack.Navigator> */}
-
             </NavigationContainer>
         </Provider>
     );
