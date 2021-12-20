@@ -30,9 +30,12 @@ cd ios/ && pod install
 For Android, open an emulator (mobile or TV) and run the command:
 
 ```bash
-npm run android
+npx react-native run-android
 ```
-For iOS, open Xcode `.xcworkspace` and then select a simulator (mobile or TV) and press play.
+
+For iOS, open Xcode `.xcworkspace` file:
+- Select the scheme (eg: `*-tvOS` for AppleTV)
+- Select a simulator (mobile or TV) and press play.
 
 
 ## Demo links
@@ -46,8 +49,8 @@ For iOS, open Xcode `.xcworkspace` and then select a simulator (mobile or TV) an
 [Apple TV](https://drive.google.com/file/d/1qwwYWU9Va2jcEQhx41bVPRnnB4z-6WBr/view?usp=sharing)
 
 
-## Note
+## Note / Known issues
 
 - Orientation on iOS device does not lock to landscape mode.
 - Video url is hardcoded.
-- For some unknown reason, the iOS/AppleTV simulators had some green theme applied (not really an issue 😬).
+- For some unknown reason, the iOS/AppleTV simulators sometimes has a green theme applied on some native controllers (eg: video player).
